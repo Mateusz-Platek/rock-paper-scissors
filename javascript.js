@@ -14,25 +14,51 @@ function getPlayerChoice() {
     return val.toLowerCase();
 }
 
-function round(computer, player) {
+function playRound(computer, player) {
     let compVal = computer();
     let playerVal = player();
     
     if(compVal == playerVal) {
-        return `Draw! You both chose ${compVal}`;
+        return `Draw!`;
     } else {
-        if(compVal == "rock" && player == "paper") {
-            return `You Win! ${playerVal} beats ${compVal}`;
-        } else if(compVal == "rock" && player == "scissors") {
-            return `You Lose! ${compVal} beats ${playerVal}`;
-        } else if(compVal == "paper" && player == "scissors") {
-            return `You Win! ${playerVal} beats ${compVal}`;
-        } else if(compVal == "paper" && player == "rock") {
-            return `You Lose! ${compVal} beats ${playerVal}`;
-        } else if(compVal == "scissors" && player == "rock") {
-            return `You Win! ${playerVal} beats ${compVal}`;
+        if(compVal == "rock" && playerVal == "paper") {
+            return `Win!`;
+        } else if(compVal == "rock" && playerVal == "scissors") {
+            return `Lose!`;
+        } else if(compVal == "paper" && playerVal == "scissors") {
+            return `Win!`;
+        } else if(compVal == "paper" && playerVal == "rock") {
+            return `Lose!`;
+        } else if(compVal == "scissors" && playerVal == "rock") {
+            return `Win!`;
         } else {
-            return `You Lose! ${compVal} beats ${playerVal}`;
+            return `Lose!`;
         }
+    }
+}
+
+function game() {
+    let compScore = 0;
+    let playerScore = 0;
+
+    for(let i = 0; i < 5; i++) {
+        let round = playRound(getComputerChoice, getPlayerChoice);
+        if(round == "Win!") {
+            playerScore++;
+            console.log("Win!");
+        } else if(round == "Lose!") {
+            compScore++;
+            console.log("Lose!");
+        } else {
+            console.log("Draw!");
+        }
+    }
+
+    if(compScore > playerScore) {
+        return "Computer Won!";
+    } else if(playerScore > compScore) {
+        return "You Won!";
+    } else {
+        return "Draw!";
     }
 }
