@@ -51,20 +51,18 @@ playerScoreNow.textContent = playerScore;
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if(compScore == 5 || playerScore == 5) {
-            return;
+            compScore = 0;
+            playerScore = 0;
         }
 
         let result = playRound(getComputerChoice, button.id);
         if(result == 'Win!') {
             playerScore++;
-            score.classList.add('border');
             score.textContent = 'You win this round!';
         } else if(result == 'Lose!') {
             compScore++;
-            score.classList.add('border');
             score.textContent = 'You lose this round!';
         } else {
-            score.classList.add('border');
             score.textContent = 'Draw!';
         }
 
@@ -72,10 +70,8 @@ buttons.forEach(button => {
         playerScoreNow.textContent = playerScore;
 
         if(compScore == 5) {
-            score.classList.add('border');
             score.textContent = 'You lose match!';
         } else if(playerScore == 5) {
-            score.classList.add('border');
             score.textContent = 'You win match!';
         }
     });
