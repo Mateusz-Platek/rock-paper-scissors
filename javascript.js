@@ -9,14 +9,14 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerChoice() {
+/*function getPlayerChoice() {
     let val = prompt("What is your choice?");
     return val.toLowerCase();
-}
+}*/
 
 function playRound(computer, player) {
     let compVal = computer();
-    let playerVal = player();
+    let playerVal = player;
     
     if(compVal == playerVal) {
         return `Draw!`;
@@ -37,7 +37,51 @@ function playRound(computer, player) {
     }
 }
 
-function game() {
+let compScore = 0;
+let playerScore = 0;
+
+const buttons = document.querySelectorAll('button');
+const computerScoreNow = document.querySelector('.computer');
+const playerScoreNow = document.querySelector('.player');
+const score = document.querySelector('.score');
+
+computerScoreNow.textContent = compScore;
+playerScoreNow.textContent = playerScore;
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        if(compScore == 5 || playerScore == 5) {
+            return;
+        }
+
+        let result = playRound(getComputerChoice, button.id);
+        if(result == 'Win!') {
+            playerScore++;
+            score.classList.add('border');
+            score.textContent = 'You win this round!';
+        } else if(result == 'Lose!') {
+            compScore++;
+            score.classList.add('border');
+            score.textContent = 'You lose this round!';
+        } else {
+            score.classList.add('border');
+            score.textContent = 'Draw!';
+        }
+
+        computerScoreNow.textContent = compScore;
+        playerScoreNow.textContent = playerScore;
+
+        if(compScore == 5) {
+            score.classList.add('border');
+            score.textContent = 'You lose match!';
+        } else if(playerScore == 5) {
+            score.classList.add('border');
+            score.textContent = 'You win match!';
+        }
+    });
+})
+
+/*function game() {
     let compScore = 0;
     let playerScore = 0;
 
@@ -61,4 +105,4 @@ function game() {
     } else {
         return "Draw!";
     }
-}
+}*/
